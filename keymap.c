@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Brite| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
+ * | IntJ | Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_preonic_grid( \
@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,  \
   LT(ARROW, KC_ESC),  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,  \
-  BACKLIT, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT  \
+  LT(INTJ, KC_F4), KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT  \
 ),
 
 /* Lower
@@ -123,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Arrow (Hold Escape)
  * ,-----------------------------------------------------------------------------------.
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |      |SetBM1|SetBM2|SetBM3|SetBM4|SetBM5|SetBM6|SetBM7|SetBM8|SetBM9|SetBM0|      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |  F1  |  F2  |  F3  |  F4  |      |      |      |  Up  |      |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -135,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ARROW] = LAYOUT_preonic_grid( \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+  _______, LSFT(LCTL(LALT(KC_1))), LSFT(LCTL(LALT(KC_2))), LSFT(LCTL(LALT(KC_3))), LSFT(LCTL(LALT(KC_4))), LSFT(LCTL(LALT(KC_5))), LSFT(LCTL(LALT(KC_6))), LSFT(LCTL(LALT(KC_7))), LSFT(LCTL(LALT(KC_8))), LSFT(LCTL(LALT(KC_9))), LSFT(LCTL(LALT(KC_0))), _______, \
   _______, KC_F1, KC_F2, KC_F3, KC_F4, _______, _______, _______, KC_UP, _______, _______, _______, \
   _______, KC_F5, KC_F6, KC_F7, KC_F8, _______, KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______, \
   _______, KC_F9, KC_F10, KC_F11, KC_F12, _______, KC_END, _______, _______, _______, _______, _______, \
@@ -144,23 +144,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* IntelliJ (Fn)
  * ,-----------------------------------------------------------------------------------.
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |      | BkMk1| BkMk2| BkMk3| BkMk4| BkMk5| BkMk6| BkMk7| BkMk8| BkMk9| BkMk0|      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      | Close|      |  End |  Run |      |      |Usages|Prev_M|Outlin|OpenIn|      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |Symbol|      |      |      |Hierar| Prev |Next_M| Next |      |      |
+ * |      |Rename|Symbol|      |      |      |Hierar| Prev |Next_M| Next |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |Run It|      |      |      | File |      |      |      |      |      |
+ * |      |      |Run It|Create|      |      | File | Menu |      |      |Evalua|      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_INTJ] = LAYOUT_preonic_grid( \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+  _______, LCTL(LALT(KC_1)), LCTL(LALT(KC_2)), LCTL(LALT(KC_3)), LCTL(LALT(KC_4)), LCTL(LALT(KC_5)), LCTL(LALT(KC_6)), LCTL(LALT(KC_7)), LCTL(LALT(KC_8)), LCTL(LALT(KC_9)), LCTL(LALT(KC_0)), _______, \
   _______, LCTL(KC_F4), _______, LCTL(KC_F2), LSFT(LALT(KC_F10)), _______, _______, LALT(KC_F7), LALT(KC_UP), LCTL(KC_F12), LALT(KC_F1), _______, \
-  _______, _______, LCTL(LALT(LSFT(KC_N))), _______, _______, _______, LCTL(LALT(KC_H)), LCTL(LALT(KC_LEFT)), LALT(KC_DOWN), LCTL(LALT(KC_RIGHT)), _______, _______, \
-  _______, _______, LCTL(LSFT(KC_F10)), _______, _______, _______, LCTL(LSFT(KC_N)), _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  \
+  _______, LSFT(KC_F6), LCTL(LALT(LSFT(KC_N))), _______, _______, _______, LCTL(LALT(KC_H)), LCTL(LALT(KC_LEFT)), LALT(KC_DOWN), LCTL(LALT(KC_RIGHT)), _______, _______, \
+  _______, _______, LCTL(LSFT(KC_F10)), LALT(KC_INS), _______, _______, LCTL(LSFT(KC_N)), LSFT(LALT(KC_SCLN)), _______, _______, LALT(KC_F8), _______, \
+  _______, _______, _______, _______, _______, LCTL(LALT(KC_SCLN)), LCTL(LALT(KC_SCLN)), _______, _______, _______, _______, _______  \
 )
 
 
