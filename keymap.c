@@ -34,7 +34,19 @@ enum preonic_keycodes {
   DELETE_EMAIL,
   ARCHIVE_EMAIL,
   VIM_CP,
-  VIM_PS
+  VIM_PS,
+  SLACK,
+  TODOIST,
+  FIREFOX,
+  CHROME,
+  UNANET,
+  ONENOTE,
+  SPOTIFY,
+  MAIL,
+  CALENDR,
+  ITERM,
+  PLAN,
+  VMWARE
 };
 
 // Layer shortcuts
@@ -66,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSPC, \
   ARR_ESC,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT, \
   KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ENT, \
-  INTJ_F4, KC_LCTL, KC_LALT, KC_LGUI,   LOWER,  KC_SPC,  KC_SPC,   RAISE, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT  \
+  INTJ_F4, KC_LCTL, KC_LALT, KC_LGUI,   LOWER, SPC_APP, SPC_APP,   RAISE, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT  \
 ),
 
 /* Lower
@@ -189,9 +201,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_APPS] = LAYOUT_preonic_grid( \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+  _______, _______, _______,    MAIL, _______, TODOIST, _______,  UNANET,   ITERM, ONENOTE,    PLAN, _______, \
+  _______, _______,   SLACK, _______, FIREFOX,  CHROME, _______, _______, _______, _______, _______, _______, \
+  _______, _______, _______, CALENDR,  VMWARE, _______, _______, SPOTIFY, _______, _______, _______, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  \
 )
 
@@ -199,71 +211,135 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-        case QWERTY:
-          if (record->event.pressed) {
-            set_single_persistent_default_layer(_QWERTY);
-          }
-          return false;
-          break;
-        case LOWER:
-          if (record->event.pressed) {
-            layer_on(_LOWER);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          } else {
-            layer_off(_LOWER);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          }
-          return false;
-          break;
-        case RAISE:
-          if (record->event.pressed) {
-            layer_on(_RAISE);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          } else {
-            layer_off(_RAISE);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          }
-          return false;
-          break;
-        case BACKLIT:
-          if (record->event.pressed) {
-            register_code(KC_RSFT);
-            #ifdef BACKLIGHT_ENABLE
-              backlight_step();
-            #endif
-            PORTE &= ~(1<<6);
-          } else {
-            unregister_code(KC_RSFT);
-            PORTE |= (1<<6);
-          }
-          return false;
-          break;
-        case DELETE_EMAIL:
-          if (record->event.pressed) {
-            SEND_STRING("x#");
-          }
-          return false;
-          break;
-        case ARCHIVE_EMAIL:
-          if (record->event.pressed) {
-            SEND_STRING("xe");
-          }
-          return false;
-          break;
-        case VIM_CP:
-          if (record->event.pressed) {
-            SEND_STRING("\"*y");
-          }
-          return false;
-          break;
-        case VIM_PS:
-          if (record->event.pressed) {
-            SEND_STRING("\"*p");
-          }
-          return false;
-          break;
+    case QWERTY:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_QWERTY);
       }
-    return true;
+      return false;
+    case LOWER:
+      if (record->event.pressed) {
+        layer_on(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      } else {
+        layer_off(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      }
+      return false;
+    case RAISE:
+      if (record->event.pressed) {
+        layer_on(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      } else {
+        layer_off(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      }
+      return false;
+    case DELETE_EMAIL:
+      if (record->event.pressed) {
+        SEND_STRING("x#");
+      }
+      return false;
+    case ARCHIVE_EMAIL:
+      if (record->event.pressed) {
+        SEND_STRING("xe");
+      }
+      return false;
+    case VIM_CP:
+      if (record->event.pressed) {
+        SEND_STRING("\"*y");
+      }
+      return false;
+    case VIM_PS:
+      if (record->event.pressed) {
+        SEND_STRING("\"*p");
+      }
+      return false;
+    case SLACK:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
+        _delay_ms(200);
+        SEND_STRING("slack" SS_TAP(X_ENTER));
+      }
+    return false;
+    case CALENDR:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
+        _delay_ms(200);
+        SEND_STRING("calendar" SS_TAP(X_ENTER));
+      }
+    return false;
+    case FIREFOX:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
+        _delay_ms(200);
+        SEND_STRING("firefox" SS_TAP(X_ENTER));
+      }
+    return false;
+    case MAIL:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
+        _delay_ms(200);
+        SEND_STRING("mail" SS_TAP(X_ENTER));
+      }
+    return false;
+    case TODOIST:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
+        _delay_ms(200);
+        SEND_STRING("todoist-native" SS_TAP(X_ENTER));
+      }
+    return false;
+    case CHROME:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
+        _delay_ms(200);
+        SEND_STRING("chrome" SS_TAP(X_ENTER));
+      }
+    return false;
+    case UNANET:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
+        _delay_ms(200);
+        SEND_STRING("unanet" SS_TAP(X_ENTER));
+      }
+    return false;
+    case SPOTIFY:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
+        _delay_ms(200);
+        SEND_STRING("spotify" SS_TAP(X_ENTER));
+      }
+    return false;
+    case ITERM:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
+        _delay_ms(200);
+        SEND_STRING("iterm" SS_TAP(X_ENTER));
+      }
+    return false;
+    case ONENOTE:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
+        _delay_ms(200);
+        SEND_STRING("onenote" SS_TAP(X_ENTER));
+      }
+    return false;
+    case PLAN:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
+        _delay_ms(200);
+        SEND_STRING("plan" SS_TAP(X_ENTER));
+      }
+    return false;
+    case VMWARE:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LALT(SS_TAP(X_SPACE)));
+        _delay_ms(200);
+        SEND_STRING("vmware" SS_TAP(X_ENTER));
+      }
+    return false;
+  }
+  return true;
 };
 
 /* Layer
@@ -279,10 +355,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-//[_LAYER] = LAYOUT_preonic_grid( \
-//  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-//  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-//  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-//  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-//  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  \
-//)
+/*[_LAYER] = LAYOUT_preonic_grid( \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  \
+)*/
