@@ -62,6 +62,7 @@ enum preonic_keycodes {
 #define ALTRGHT LALT(KC_RGHT)
 #define GUILEFT LGUI(KC_LEFT)
 #define GUIRGHT LGUI(KC_RGHT)
+#define SWTCSCR LGUI(LSFT(LCTL(KC_G)))
 
 // IntelliJ Shorcuts
 #define FNDFILE LSFT(LCTL(KC_N))
@@ -188,17 +189,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |  F5  |  F6  |  F7  |  F8  |G+Left|A+Left| Left | Down | Right|A+Rght|G+Rght|
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |  F9  |  F10 |  F11 |  F12 | Home |  End |      |      |      |      |      |
+ * |      |  F9  |  F10 |  F11 |  F12 | Home |  End |SwiScr|      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |      |      |      |      |
+ * |      |      |      |      |      |             |      |      |PrvChn|NxtChn|      |
  * `-----------------------------------------------------------------------------------'
  */
 [_ARROW] = LAYOUT_preonic_grid( \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
   _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4, _______,  VIM_CP, DEL_EML,   KC_UP, ARC_EML,  VIM_PS, _______, \
   _______,   KC_F5,   KC_F6,   KC_F7,   KC_F8, GUILEFT, ALTLEFT, KC_LEFT, KC_DOWN, KC_RGHT, ALTRGHT, GUIRGHT, \
-  _______,   KC_F9,  KC_F10,  KC_F11,  KC_F12, KC_HOME,  KC_END, _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  \
+  _______,   KC_F9,  KC_F10,  KC_F11,  KC_F12, KC_HOME,  KC_END, SWTCSCR, _______, _______, _______, _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, PRVCHNG, NXTCHNG, _______  \
 ),
 
 /* IntelliJ (Fn)
